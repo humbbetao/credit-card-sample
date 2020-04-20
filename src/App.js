@@ -1,11 +1,16 @@
-import React from "react";
+import React from 'react'
+
+import styled from 'styled-components'
+
+const Container = styled.div``
+const Header = styled.div``
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">test</header>
-    </div>
-  );
+    <Container>
+      <Header>test</Header>
+    </Container>
+  )
 }
 
-export default App;
+export default App
