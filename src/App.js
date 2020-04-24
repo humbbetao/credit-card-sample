@@ -1,16 +1,9 @@
 import React from 'react'
 
-import styled from 'styled-components'
-
-const Container = styled.div``
-const Header = styled.div``
+import Home from 'pages/Home'
 
 function App() {
-  return (
-    <Container>
-      <Header>test</Header>
-    </Container>
-  )
+  return <Home></Home>
 }
 
 export default App

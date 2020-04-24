@@ -14,10 +14,12 @@
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-proposal-class-properties",
     "babel-plugin-dynamic-import-node",
+    "babel-plugin-transform-flow-strip-types",
     [
-      "module-resolver",
+      "babel-plugin-styled-components",
       {
-        "root": ["./src"]
+        "pure": true,
+        "transpileTemplateLiterals": true
       }
     ]
   ]
