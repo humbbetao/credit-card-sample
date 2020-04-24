@@ -1,10 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import Colors from 'components/Colors'
-import constants from 'config/constants'
+
 const Container = styled.article`
   width: 100%;
-  height: calc(100vh - ${constants.HEIGHT_HEADER + constants.HEIGHT_FOOTER}px);
+  height: calc(
+    100vh -
+      ${(props) =>
+        props.theme.sizes.HEIGHT_HEADER + props.theme.sizes.HEIGHT_FOOTER}px
+  );
   flex: 1;
   background-color: ${Colors.nearWhite};
   display: flex;
@@ -12,7 +16,7 @@ const Container = styled.article`
 `
 
 const Wrapper = styled.div`
-  width: ${constants.WIDTH_CONTENT}px;
+  width: ${(props) => props.theme.sizes.WIDTH_CONTENT}px;
   height: 100%;
 `
 

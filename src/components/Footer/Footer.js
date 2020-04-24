@@ -1,22 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
-import Colors from 'components/Colors'
-import constants from 'config/constants'
 import Rectangle from 'components/Rectangle'
+
 const Container = styled.footer`
   width: 100%;
-  height: ${constants.HEIGHT_FOOTER}px;
-  background-color: ${Colors.white};
+  height: ${(props) => props.theme.sizes.HEIGHT_FOOTER}px;
+  background-color: ${(props) => props.theme.colors.white};
   bottom: 0px;
   display: flex;
   justify-content: center;
 `
 const Wrapper = styled.div`
-  width: ${constants.WIDTH_CONTENT}px;
+  width: 90%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    width: ${(props) => props.theme.sizes.WIDTH_CONTENT}px;
+  }
 `
 
 function Footer() {

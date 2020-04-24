@@ -1,14 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import Colors from 'components/Colors'
 import { ReactComponent as LogoIcon } from 'assets/logo.svg'
-import constants from 'config/constants'
 import Rectangle from '../Rectangle'
 
 const Container = styled.header`
   width: 100%;
-  height: ${constants.HEIGHT_HEADER}px;
-  background-color: ${Colors.white};
+  height: ${(props) => props.theme.sizes.HEIGHT_HEADER}px;
+  background-color: ${(props) => props.theme.colors.white};
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -16,11 +14,18 @@ const Container = styled.header`
 `
 
 const Wrapper = styled.div`
-  width: ${constants.WIDTH_CONTENT}px;
+  // width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    max-width: ${(props) => props.theme.sizes.WIDTH_CONTENT}px;
+    width: 100%;
+    flex-wrap: initial;
+  }
 `
 const Logo = styled(LogoIcon)`
   width: 260px;
@@ -31,8 +36,12 @@ const Menu = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 640px;
   flex-direction: row;
+  width: 100%;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    width: 640px;
+  }
 `
 
 function Header() {
