@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Rectangle = styled.div`
-  width: ${(props) => props.width};
+  width: ${(props) => props.width || '100px'};
   height: ${(props) => props.height};
   background-color: ${(props) => props.backgroundColor};
   opacity: ${(props) => props.opacity};

@@ -18,12 +18,13 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
 
   @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
     max-width: ${(props) => props.theme.sizes.WIDTH_CONTENT}px;
     width: 100%;
+    justify-content: space-between;
     flex-wrap: initial;
   }
 `
@@ -51,7 +52,6 @@ function Header() {
         <Logo />
         <Menu>
           <Rectangle
-            width="100px"
             height="18px"
             backgroundColor="#3C3C3C"
             borderRadius="5px"
@@ -59,7 +59,6 @@ function Header() {
             margin="0 18px"
           />
           <Rectangle
-            width="100px"
             height="18px"
             backgroundColor="#3C3C3C"
             borderRadius="5px"
@@ -67,28 +66,11 @@ function Header() {
             margin="0 18px"
           />
           <Rectangle
-            width="100px"
             height="18px"
             backgroundColor="#3C3C3C"
             borderRadius="5px"
             opacity="0.6"
             margin="0 18px"
-          />
-          <Rectangle
-            width="100px"
-            height="18px"
-            backgroundColor="#3C3C3C"
-            borderRadius="5px"
-            opacity="0.6"
-            margin="0 18px"
-          />
-          <Rectangle
-            width="100px"
-            height="18px"
-            backgroundColor="#3C3C3C"
-            borderRadius="5px"
-            opacity="0.6"
-            margin="0 0 0 18px"
           />
         </Menu>
       </Wrapper>

@@ -2,11 +2,11 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import Home from 'pages/Home'
 import breakpoints from 'config/breakpoints'
-import constants from 'config/constants'
+import sizes from 'config/sizes'
 import colors from 'components/Colors'
 import GlobalStyle from 'components/GlobalStyle'
 
-const theme = { breakpoints, colors, sizes: constants }
+const theme = { breakpoints, colors, sizes }
 
 function App() {
   return (
