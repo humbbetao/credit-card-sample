@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     '& label.Mui-error': {
       color: theme.palette.error.light,
     },
+    marginBottom: '24px',
   },
 }))
 
@@ -23,6 +24,9 @@ function TextInput({
   label = '',
   error = false,
   helperText = '',
+  type = 'text',
+  pattern,
+  ...props
 }) {
   const classes = useStyles()
   return (
@@ -38,6 +42,9 @@ function TextInput({
       alt={alt}
       error={error}
       helperText={helperText}
+      type={type}
+      pattern={pattern}
+      {...props}
     />
   )
 }
@@ -53,6 +60,8 @@ TextInput.propTypes = {
   label: PropTypes.string,
   error: PropTypes.bool,
   helperText: PropTypes.string,
+  type: PropTypes.string,
+  pattern: PropTypes.string,
 }
 
 export default TextInput

@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import TextInput from '../TextInput'
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
+import { CreditCardMask, ValidateDateMask, CvvMask } from '../mask'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import { ReactComponent as ExpandMore } from 'assets/expand-more.svg'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.white};
@@ -9,7 +17,20 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div``
-
+const useStylesButton = makeStyles({
+  root: {
+    width: '100%',
+    height: '51px',
+    marginBottom: '40px',
+  },
+})
+const useStylesSelect = makeStyles({
+  root: {
+    width: '100%',
+    marginBottom: '24px',
+    minWidth: '100%',
+  },
+})
 function Inputs() {
   const [creditCardNumber, setCreditCardNumber] = useState('')
   const [name, setName] = useState('')
@@ -18,7 +39,10 @@ function Inputs() {
   const [quantityParcels, setQuantityParcels] = useState('')
 
   const handleOnChangeCreditCarNumber = (event) => {
-    setCreditCardNumber(event.target.value)
+    const value = event.target.value
+    console.log(value)
+    console.log(event)
+    setCreditCardNumber(value)
   }
   const handleOnChangeName = (event) => {
     setName(event.target.value)
@@ -32,45 +56,81 @@ function Inputs() {
   const handleOnChangeQuantityParcels = (event) => {
     setQuantityParcels(event.target.value)
   }
-
+  const classesButton = useStylesButton()
+  const classesSelect = useStylesSelect()
   return (
     <Container>
       <Wrapper>
         <TextInput
+          label="Número do cartão"
           value={creditCardNumber}
-          label={'Número do cartão'}
           onChange={handleOnChangeCreditCarNumber}
-          placeholder={''}
-          alt={'Número do cartão'}
+          name="Número do cartão"
+          id="Número do cartão"
+          InputProps={{
+            inputComponent: CreditCardMask,
+          }}
         />
+
         <TextInput
           value={name}
-          label={'Nome (igual ao cartão)'}
+          label="Nome (igual ao cartão)"
           onChange={handleOnChangeName}
-          placeholder={''}
-          alt={'Nome (igual ao cartão)'}
         />
         <TextInput
+          label="Validate"
           value={validateDate}
-          label={'Validate'}
           onChange={handleOnChangeValidateDate}
-          placeholder={''}
-          alt={'Validate'}
+          name="Validate"
+          id="Validate"
+          InputProps={{
+            inputComponent: ValidateDateMask,
+          }}
         />
         <TextInput
+          label="CVV"
           value={cvv}
-          label={'CVV'}
           onChange={handleOnChangeCvv}
-          placeholder={''}
-          alt={'CVV'}
+          name="CVV"
+          id="CVV"
+          InputProps={{
+            inputComponent: CvvMask,
+          }}
         />
-        <TextInput
-          value={quantityParcels}
-          label={'Número de parcelas'}
-          onChange={handleOnChangeQuantityParcels}
-          placeholder={''}
-          alt={'Número de parcelas'}
-        />
+        <FormControl classes={classesSelect}>
+          <InputLabel>Name</InputLabel>
+          <Select
+            label="Número de parcelas"
+            name="Número de parcelas"
+            id="Número de parcelas"
+            value={quantityParcels}
+            onChange={handleOnChangeQuantityParcels}
+            IconComponent={ExpandMore}
+            autoWidth={true}
+          >
+            <MenuItem
+              classes={classesSelect}
+              value={'12x R$1.000,00 sem juros'}
+            >
+              Ten
+            </MenuItem>
+            <MenuItem
+              classes={classesSelect}
+              value={'12x R$1.000,00 sem juros'}
+            >
+              Twenty
+            </MenuItem>
+            <MenuItem
+              classes={classesSelect}
+              value={'12x R$1.000,00 sem juros'}
+            >
+              Thirty
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <Button classes={classesButton} variant="contained" color="secondary">
+          Continuar
+        </Button>
       </Wrapper>
     </Container>
   )

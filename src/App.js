@@ -17,7 +17,7 @@ const themeMaterialUi = createMuiTheme({
       dark: themeStyled.colors.gray,
       contrastText: themeStyled.colors.gray,
     },
-    secondary: { main: themeStyled.colors.black },
+    secondary: { main: themeStyled.colors.red },
     text: {
       primary: themeStyled.colors.black,
       secondary: themeStyled.colors.gray,
