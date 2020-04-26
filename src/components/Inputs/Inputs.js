@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { ReactComponent as ExpandMore } from 'assets/expand-more.svg'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
+import CardValidator from 'card-validator'
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.white};
@@ -31,30 +32,84 @@ const useStylesSelect = makeStyles({
     minWidth: '100%',
   },
 })
+
 function Inputs() {
   const [creditCardNumber, setCreditCardNumber] = useState('')
   const [name, setName] = useState('')
   const [validateDate, setValidateDate] = useState('')
   const [cvv, setCvv] = useState('')
   const [quantityParcels, setQuantityParcels] = useState('')
+  const [errors, setErrors] = useState({
+    creditCardNumber: false,
+    name: false,
+    validateDate: false,
+    cvv: false,
+    quantityParcels: false,
+  })
+
+  const validateCreditCarNumber = (value) => {
+    if (value.length < 16) return
+    const isValid = CardValidator.number(value)
+    if (isValid.isPotentiallyValid || isValid.isValid) {
+      setErrors({ ...errors, creditCardNumber: false })
+    } else {
+      setErrors({ ...errors, creditCardNumber: true })
+    }
+  }
+  const validateName = (value) => {
+    if (value.split(' ').length >= 2) {
+      setErrors({ ...errors, name: false })
+    } else {
+      setErrors({ ...errors, name: true })
+    }
+  }
+  const validateValidateDate = (value) => {
+    if (!value) {
+      setErrors({ ...errors, validateDate: false })
+    } else {
+      setErrors({ ...errors, validateDate: true })
+    }
+  }
+  const validateCvv = (value) => {
+    if (value.length === 2) {
+      setErrors({ ...errors, cvv: false })
+    } else {
+      setErrors({ ...errors, cvv: true })
+    }
+  }
+  const validateQuantityParcels = (value) => {
+    if (!value) {
+      setErrors({ ...errors, quantityParcels: false })
+    } else {
+      setErrors({ ...errors, quantityParcels: true })
+    }
+  }
 
   const handleOnChangeCreditCarNumber = (event) => {
     const value = event.target.value
     console.log(value)
-    console.log(event)
     setCreditCardNumber(value)
+    validateCreditCarNumber(value)
   }
   const handleOnChangeName = (event) => {
-    setName(event.target.value)
+    const value = event.target.value
+    setName(value)
+    validateName(value)
   }
   const handleOnChangeValidateDate = (event) => {
-    setValidateDate(event.target.value)
+    const value = event.target.value
+    setValidateDate(value)
+    validateValidateDate(value)
   }
   const handleOnChangeCvv = (event) => {
-    setCvv(event.target.value)
+    const value = event.target.value
+    setCvv(value)
+    validateCvv(value)
   }
   const handleOnChangeQuantityParcels = (event) => {
-    setQuantityParcels(event.target.value)
+    const value = event.target.value
+    setQuantityParcels(value)
+    validateQuantityParcels(value)
   }
   const classesButton = useStylesButton()
   const classesSelect = useStylesSelect()
@@ -70,12 +125,16 @@ function Inputs() {
           InputProps={{
             inputComponent: CreditCardMask,
           }}
+          error={errors.creditCardNumber}
+          helperText={errors.creditCardNumber && 'Número de cartão inválido'}
         />
 
         <TextInput
           value={name}
           label="Nome (igual ao cartão)"
           onChange={handleOnChangeName}
+          error={errors.name}
+          helperText={errors.name && 'Insira seu nome completo'}
         />
         <TextInput
           label="Validate"
@@ -86,6 +145,8 @@ function Inputs() {
           InputProps={{
             inputComponent: ValidateDateMask,
           }}
+          error={errors.validateDate}
+          helperText={errors.validateDate && 'Data inválida'}
         />
         <TextInput
           label="CVV"
@@ -96,6 +157,8 @@ function Inputs() {
           InputProps={{
             inputComponent: CvvMask,
           }}
+          error={errors.cvv}
+          helperText={errors.cvv && 'Código inválido'}
         />
         <FormControl classes={classesSelect}>
           <InputLabel>Name</InputLabel>
@@ -107,6 +170,8 @@ function Inputs() {
             onChange={handleOnChangeQuantityParcels}
             IconComponent={ExpandMore}
             autoWidth={true}
+            error={errors.quantityParcels}
+            helperText={errors.quantityParcels && 'Insira o número de parcelas'}
           >
             <MenuItem
               classes={classesSelect}
