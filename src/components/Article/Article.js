@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import Colors from 'components/Colors'
+
 import Card from 'components/Card'
+import Inputs from 'components/Inputs'
 
 const Container = styled.article`
   width: 100%;
@@ -11,9 +12,13 @@ const Container = styled.article`
         props.theme.sizes.HEIGHT_HEADER + props.theme.sizes.HEIGHT_FOOTER}px
   );
   flex: 1;
-  background-color: ${Colors.nearWhite};
+  background-color: ${(props) => props.theme.colors.white};
   display: flex;
   justify-content: center;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    background-color: ${(props) => props.theme.colors.nearWhite};
+  }
 `
 
 const Wrapper = styled.div`
@@ -31,6 +36,7 @@ function Article() {
     <Container>
       <Wrapper>
         <Card />
+        <Inputs />
       </Wrapper>
     </Container>
   )
