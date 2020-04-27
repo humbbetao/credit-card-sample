@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.js": "/static/js/main.f1bc3b3d.chunk.js",
+    "main.js.map": "/static/js/main.f1bc3b3d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ae3a1aad.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ae3a1aad.js.map",
+    "static/js/2.b4e95141.chunk.js": "/static/js/2.b4e95141.chunk.js",
+    "static/js/2.b4e95141.chunk.js.map": "/static/js/2.b4e95141.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.99ac35bbed75fb83aec0a69bb4a5b1aa.js": "/precache-manifest.99ac35bbed75fb83aec0a69bb4a5b1aa.js",
+    "service-worker.js": "/service-worker.js",
+    "static/js/2.b4e95141.chunk.js.LICENSE.txt": "/static/js/2.b4e95141.chunk.js.LICENSE.txt",
+    "static/media/add-new-credit-card.130112b4.svg": "/static/media/add-new-credit-card.130112b4.svg",
+    "static/media/credit-card-empty.f0f812cc.svg": "/static/media/credit-card-empty.f0f812cc.svg",
+    "static/media/expand-more.2724ed63.svg": "/static/media/expand-more.2724ed63.svg",
+    "static/media/logo.6e103d83.svg": "/static/media/logo.6e103d83.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ae3a1aad.js",
+    "static/js/2.b4e95141.chunk.js",
+    "static/js/main.f1bc3b3d.chunk.js"
+  ]
+}
