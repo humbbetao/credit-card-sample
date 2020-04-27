@@ -1,1 +1,1 @@
-export { CreditCardMask, CvvMask, ValidateDateMask } from './Mask'
+export { CreditCardMask, CvvMask, ExpirationDateMask } from './Mask'

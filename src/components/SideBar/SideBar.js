@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import Label from '../Label'
 import { ReactComponent as AddNewCreditCard } from 'assets/add-new-credit-card.svg'
 import CreditCard from 'components/CreditCard'
+import CreditCardContext from 'components/CreditCardContext'
 
 const AddNewCreditCardIcon = styled(AddNewCreditCard)`
   width: 50px;
@@ -31,7 +32,28 @@ const ContainerLabel = styled.div`
   align-items: ${(props) => props.alignItems};
 `
 
+function parseCreditCard(creditCardNumber) {
+  if (creditCardNumber.length < 15) return
+  return `${creditCardNumber.substring(0, 4)} ${creditCardNumber.substring(
+    4,
+    8
+  )} ${creditCardNumber.substring(8, 12)} ${creditCardNumber.substring(12, 16)}`
+}
+
+function parseExpirationDate(expirationDate) {
+  if (expirationDate.length < 3) return '00/00'
+  return `${expirationDate.substring(0, 2)}/${expirationDate.substring(2, 4)}`
+}
+
 export function SideBar() {
+  const creditCardContext = useContext(CreditCardContext)
+  console.log(creditCardContext)
+  const number = parseCreditCard(creditCardContext.creditCard.number)
+  const name = creditCardContext.creditCard.name || 'NOME DO TITULAR'
+  const expirationDate = parseExpirationDate(
+    creditCardContext.creditCard.expirationDate
+  )
+
   return (
     <Container>
       <ContainerLabel height="20px" justifyContent="center">
@@ -46,7 +68,11 @@ export function SideBar() {
           <b>Adicione um novo cartão de crédito</b>
         </Label>
       </ContainerLabel>
-      <CreditCard />
+      <CreditCard
+        creditCardNumber={number}
+        name={name}
+        expirationDate={expirationDate}
+      />
     </Container>
   )
 }

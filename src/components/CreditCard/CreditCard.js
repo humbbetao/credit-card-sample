@@ -37,11 +37,8 @@ const Infos = styled.div`
   box-sizing: border-box;
 `
 
-function CreditCard({
-  creditCardNumber = '* * * * * * * * * * * * * * * *',
-  name = 'NOME DO TITULAR',
-  validateDate = '00/00',
-}) {
+function CreditCard({ creditCardNumber, name, expirationDate }) {
+  console.log({ creditCardNumber, name, expirationDate })
   return (
     <Container>
       <CreditCardEmptyIcon />
@@ -62,7 +59,7 @@ function CreditCard({
         </Label>
         <Infos>
           <Label>{name}</Label>
-          <Label width="35px">{validateDate}</Label>
+          <Label width="35px">{expirationDate}</Label>
         </Infos>
       </ContainerLabel>
     </Container>
@@ -72,7 +69,13 @@ function CreditCard({
 CreditCard.propTypes = {
   creditCardNumber: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  validateDate: PropTypes.string.isRequired,
+  expirationDate: PropTypes.string.isRequired,
+}
+
+CreditCard.defaultProps = {
+  creditCardNumber: '* * * *  * * * *  * * * *  * * * *',
+  name: 'NOME DO TITULAR',
+  expirationDate: '00/00',
 }
 
 export default CreditCard

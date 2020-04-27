@@ -21,7 +21,7 @@ function CreditCardMask(props) {
     />
   )
 }
-function ValidateDateMask(props) {
+function ExpirationDateMask(props) {
   const { inputRef, onChange, ...other } = props
   function limit(val, max) {
     if (val.length === 1 && val[0] > max[0]) {
@@ -92,7 +92,7 @@ CvvMask.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-ValidateDateMask.propTypes = {
+ExpirationDateMask.propTypes = {
   inputRef: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -102,4 +102,4 @@ CreditCardMask.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 }
-export { CreditCardMask, CvvMask, ValidateDateMask }
+export { CreditCardMask, CvvMask, ExpirationDateMask }

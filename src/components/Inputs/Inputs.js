@@ -1,20 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import TextInput from '../TextInput'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
-import { CreditCardMask, ValidateDateMask, CvvMask } from '../mask'
+import { CreditCardMask, ExpirationDateMask, CvvMask } from '../mask'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { ReactComponent as ExpandMore } from 'assets/expand-more.svg'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import CardValidator from 'card-validator'
+import CreditCardContext from 'components/CreditCardContext'
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   width: 100%;
   padding: 0 40px;
+`
+
+const ConfirmationInfos = styled.div`
+  display: flex;
 `
 
 const Wrapper = styled.div``
@@ -33,25 +38,42 @@ const useStylesSelect = makeStyles({
   },
 })
 
+const useStylesConfirmation = makeStyles({
+  rootRight: {
+    marginRight: '5px',
+    marginBottom: '24px',
+    width: '100%',
+  },
+  rootLeft: {
+    marginLeft: '5px',
+    marginBottom: '24px',
+    width: '100%',
+  },
+})
+
 function Inputs() {
   const [creditCardNumber, setCreditCardNumber] = useState('')
   const [name, setName] = useState('')
-  const [validateDate, setValidateDate] = useState('')
+  const [expirationDate, setExpirationDate] = useState('')
   const [cvv, setCvv] = useState('')
   const [quantityParcels, setQuantityParcels] = useState(0)
   const [errors, setErrors] = useState({
     creditCardNumber: false,
     name: false,
-    validateDate: false,
+    expirationDate: false,
     cvv: false,
     quantityParcels: false,
   })
 
+  const creditCardContext = useContext(CreditCardContext)
   const validateCreditCarNumber = (value) => {
     if (value.length < 16) return
     const isValid = CardValidator.number(value)
     if (isValid.isPotentiallyValid || isValid.isValid) {
       setErrors({ ...errors, creditCardNumber: false })
+      creditCardContext.save({
+        number: value,
+      })
     } else {
       setErrors({ ...errors, creditCardNumber: true })
     }
@@ -59,11 +81,14 @@ function Inputs() {
   const validateName = (value) => {
     if (value.split(' ').length >= 2) {
       setErrors({ ...errors, name: false })
+      creditCardContext.save({
+        name: value,
+      })
     } else {
       setErrors({ ...errors, name: true })
     }
   }
-  const validateValidateDate = (value) => {
+  const validateExpirationDate = (value) => {
     let isValid = false
     if (value.length < 4) {
       isValid = false
@@ -80,14 +105,20 @@ function Inputs() {
     }
 
     if (isValid) {
-      setErrors({ ...errors, validateDate: false })
+      setErrors({ ...errors, expirationDate: false })
+      creditCardContext.save({
+        expirationDate: value,
+      })
     } else {
-      setErrors({ ...errors, validateDate: true })
+      setErrors({ ...errors, expirationDate: true })
     }
   }
   const validateCvv = (value) => {
-    if (value.length === 2) {
+    if (value.length === 3) {
       setErrors({ ...errors, cvv: false })
+      creditCardContext.save({
+        cvv: value,
+      })
     } else {
       setErrors({ ...errors, cvv: true })
     }
@@ -95,6 +126,9 @@ function Inputs() {
   const validateQuantityParcels = (value) => {
     if (!value) {
       setErrors({ ...errors, quantityParcels: false })
+      creditCardContext.save({
+        quantityParcels: value,
+      })
     } else {
       setErrors({ ...errors, quantityParcels: true })
     }
@@ -111,10 +145,10 @@ function Inputs() {
     setName(value)
     validateName(value)
   }
-  const handleOnChangeValidateDate = (event) => {
+  const handleOnChangeExpirationDate = (event) => {
     const value = event.target.value
-    setValidateDate(value)
-    validateValidateDate(value)
+    setExpirationDate(value)
+    validateExpirationDate(value)
   }
   const handleOnChangeCvv = (event) => {
     const value = event.target.value
@@ -127,28 +161,32 @@ function Inputs() {
     validateQuantityParcels(value)
   }
 
-  const save = (creditCard) => {
-    console.log(creditCard)
-  }
   const handleOnClickOnButton = () => {
     validateCreditCarNumber(creditCardNumber)
     validateName(name)
-    validateValidateDate(validateDate)
+    validateExpirationDate(expirationDate)
     validateCvv(cvv)
     validateQuantityParcels(quantityParcels)
 
     if (
       !errors.creditCardNumber &&
       !errors.name &&
-      !errors.validateDate &&
+      !errors.expirationDate &&
       !errors.cvv &&
       !errors.quantityParcels
     ) {
-      save({ creditCardNumber, name, validateDate, cvv, quantityParcels })
+      creditCardContext.save({
+        creditCardNumber,
+        name,
+        expirationDate,
+        cvv,
+        quantityParcels,
+      })
     }
   }
   const classesButton = useStylesButton()
   const classesSelect = useStylesSelect()
+  const classesConfirmation = useStylesConfirmation()
 
   return (
     <Container>
@@ -173,30 +211,35 @@ function Inputs() {
           error={errors.name}
           helperText={errors.name && 'Insira seu nome completo'}
         />
-        <TextInput
-          label="Validate"
-          value={validateDate}
-          onChange={handleOnChangeValidateDate}
-          name="Validate"
-          id="Validate"
-          InputProps={{
-            inputComponent: ValidateDateMask,
-          }}
-          error={errors.validateDate}
-          helperText={errors.validateDate && 'Data inválida'}
-        />
-        <TextInput
-          label="CVV"
-          value={cvv}
-          onChange={handleOnChangeCvv}
-          name="CVV"
-          id="CVV"
-          InputProps={{
-            inputComponent: CvvMask,
-          }}
-          error={errors.cvv}
-          helperText={errors.cvv && 'Código inválido'}
-        />
+        <ConfirmationInfos>
+          <TextInput
+            classes={{ root: classesConfirmation.rootRight }}
+            label="Validade"
+            value={expirationDate}
+            onChange={handleOnChangeExpirationDate}
+            name="Validade"
+            id="Validade"
+            InputProps={{
+              inputComponent: ExpirationDateMask,
+            }}
+            error={errors.expirationDate}
+            helperText={errors.expirationDate && 'Data inválida'}
+          />
+          <TextInput
+            classes={{ root: classesConfirmation.rootLeft }}
+            label="CVV"
+            value={cvv}
+            onChange={handleOnChangeCvv}
+            name="CVV"
+            id="CVV"
+            InputProps={{
+              inputComponent: CvvMask,
+            }}
+            error={errors.cvv}
+            helperText={errors.cvv && 'Código inválido'}
+          />
+        </ConfirmationInfos>
+
         <FormControl classes={classesSelect}>
           <InputLabel>Name</InputLabel>
           <Select
