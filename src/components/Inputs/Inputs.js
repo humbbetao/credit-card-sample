@@ -38,7 +38,7 @@ function Inputs() {
   const [name, setName] = useState('')
   const [validateDate, setValidateDate] = useState('')
   const [cvv, setCvv] = useState('')
-  const [quantityParcels, setQuantityParcels] = useState('')
+  const [quantityParcels, setQuantityParcels] = useState(0)
   const [errors, setErrors] = useState({
     creditCardNumber: false,
     name: false,
@@ -64,7 +64,22 @@ function Inputs() {
     }
   }
   const validateValidateDate = (value) => {
-    if (!value) {
+    let isValid = false
+    if (value.length < 4) {
+      isValid = false
+    } else {
+      const today = new Date()
+      const month = value.substring(0, 2)
+      const year = `20${value.substring(2, 4)}`
+      const date = new Date(year, month)
+      if (today > date) {
+        isValid = false
+      } else {
+        isValid = true
+      }
+    }
+
+    if (isValid) {
       setErrors({ ...errors, validateDate: false })
     } else {
       setErrors({ ...errors, validateDate: true })
@@ -111,8 +126,30 @@ function Inputs() {
     setQuantityParcels(value)
     validateQuantityParcels(value)
   }
+
+  const save = (creditCard) => {
+    console.log(creditCard)
+  }
+  const handleOnClickOnButton = () => {
+    validateCreditCarNumber(creditCardNumber)
+    validateName(name)
+    validateValidateDate(validateDate)
+    validateCvv(cvv)
+    validateQuantityParcels(quantityParcels)
+
+    if (
+      !errors.creditCardNumber &&
+      !errors.name &&
+      !errors.validateDate &&
+      !errors.cvv &&
+      !errors.quantityParcels
+    ) {
+      save({ creditCardNumber, name, validateDate, cvv, quantityParcels })
+    }
+  }
   const classesButton = useStylesButton()
   const classesSelect = useStylesSelect()
+
   return (
     <Container>
       <Wrapper>
@@ -193,7 +230,12 @@ function Inputs() {
             </MenuItem>
           </Select>
         </FormControl>
-        <Button classes={classesButton} variant="contained" color="secondary">
+        <Button
+          onClick={handleOnClickOnButton}
+          classes={classesButton}
+          variant="contained"
+          color="secondary"
+        >
           Continuar
         </Button>
       </Wrapper>
