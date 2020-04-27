@@ -51,7 +51,6 @@ function parseExpirationDate(expirationDate) {
 
 export function SideBar() {
   const creditCardContext = useContext(CreditCardContext)
-  console.log(creditCardContext)
   const number = parseCreditCard(creditCardContext.creditCard.number)
   const name = creditCardContext.creditCard.name || 'NOME DO TITULAR'
   const expirationDate = parseExpirationDate(

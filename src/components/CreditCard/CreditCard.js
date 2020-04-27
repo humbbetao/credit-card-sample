@@ -53,7 +53,6 @@ const Infos = styled.div`
 `
 
 function CreditCard({ creditCardNumber, name, expirationDate }) {
-  console.log({ creditCardNumber, name, expirationDate })
   return (
     <Container>
       <CreditCardEmptyIcon />

@@ -141,7 +141,6 @@ function Inputs() {
 
   const handleOnChangeCreditCarNumber = (event) => {
     const value = event.target.value
-    console.log(value)
     setCreditCardNumber(value)
     validateCreditCarNumber(value)
   }
