@@ -12,8 +12,9 @@ const Container = styled.div`
 
   @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
     width: 1024px;
-    height: 596px;
+    height: 350px;
     flex-direction: row;
+    float: left;
   }
 `
 

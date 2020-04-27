@@ -30,6 +30,10 @@ const ContainerLabel = styled.div`
   margin: ${(props) => props.margin};
   justify-content: ${(props) => props.justifyContent};
   align-items: ${(props) => props.alignItems};
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    justify-content: flex-start;
+  }
 `
 
 function parseCreditCard(creditCardNumber) {

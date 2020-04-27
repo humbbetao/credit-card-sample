@@ -15,7 +15,12 @@ import CreditCardContext from 'components/CreditCardContext'
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   width: 100%;
-  padding: 0 40px;
+  padding: 100px 40px 0 40px;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    justify-content: flex-start;
+    float: left;
+  }
 `
 
 const ConfirmationInfos = styled.div`

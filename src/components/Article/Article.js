@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-
-import Card from 'components/Card'
 import Inputs from 'components/Inputs'
+import SideBar from 'components/SideBar'
 
 const Container = styled.article`
   width: 100%;
@@ -31,12 +30,27 @@ const Wrapper = styled.div`
   }
 `
 
+const ContainerSideBar = styled.div`
+  width: 100%;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    width: 1024px;
+    height: 596px;
+    flex-direction: row;
+    float: left;
+  }
+`
 function Article() {
   return (
     <Container>
       <Wrapper>
-        <Card />
-        <Inputs />
+        <ContainerSideBar>
+          <SideBar></SideBar>
+          <Inputs />
+        </ContainerSideBar>
       </Wrapper>
     </Container>
   )

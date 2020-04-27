@@ -4,13 +4,6 @@ import Label from 'components/Label'
 import PropTypes from 'prop-types'
 import { ReactComponent as CreditCardEmpty } from '../../assets/credit-card-empty.svg'
 
-const CreditCardEmptyIcon = styled(CreditCardEmpty)`
-  width: 280px;
-  height: 172px;
-  position: relative;
-  z-index: 1;
-  float: left;
-`
 const Container = styled.div`
   height: 172px;
   width: 100%;
@@ -20,7 +13,29 @@ const Container = styled.div`
   align-items: center;
   margin-top: 16px;
   z-index: 1;
-  position: absolute;
+  background: #de4b4b 0% 0% no-repeat padding-box;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    justify-content: flex-start;
+    align-items: center;
+    width: 365px;
+    height: 224px;
+    padding: 0;
+    padding-top: 31px;
+  }
+`
+
+const CreditCardEmptyIcon = styled(CreditCardEmpty)`
+  width: 280px;
+  height: 172px;
+  position: relative;
+  z-index: 1;
+  float: left;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    width: 365px;
+    height: 224px;
+  }
 `
 
 const ContainerLabel = styled.div`
